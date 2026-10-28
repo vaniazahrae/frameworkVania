@@ -4,7 +4,7 @@
 use Illuminate\Support\Facades\Route;
 
 
-use App\Http\Controllers\mahasiswaController;
+use App\Http\Controllers\MahasiswaController;
 
 
 use App\Http\Controllers\HomeController;
@@ -64,7 +64,7 @@ Route::get('/mahasiswa', function () {
 
 
 Route::get('/mahasiswa/{param1}',
-[mahasiswaController::class, 'show']);
+[MahasiswaController::class, 'show']);
 
 
 Route::get('/about', function () {

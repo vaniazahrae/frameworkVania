@@ -13,7 +13,8 @@ class PelangganController
      */
     public function index()
     {
-        //
+        $data['dataPelanggan'] = Pelanggan::all();
+		return view('admin.pelanggan.index',$data);
     }
 
 
@@ -39,9 +40,9 @@ class PelangganController
 		$data['gender'] = $request->gender;
 		$data['email'] = $request->email;
 		$data['phone'] = $request->phone;
-		
+
 		Pelanggan::create($data);
-		
+
 		return redirect()->route('pelanggan.index')->with('success','Penambahan Data Berhasil!');
     }
 
