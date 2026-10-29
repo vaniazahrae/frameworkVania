@@ -71,4 +71,6 @@ Route::get('/about', function () {
     return view('halaman-about');
 });
 
+Route::get('/pelanggan/{id}/edit', [PelangganController::class, 'edit'])->name('pelanggan.edit');
 
+Route::delete('/pelanggan/{id}', [PelangganController::class, 'destroy'])->name('pelanggan.destroy');
