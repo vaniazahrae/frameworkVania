@@ -18,6 +18,9 @@ use App\Http\Controllers\DashboardController;
 
 use App\Http\Controllers\PelangganController;
 
+use App\Http\Controllers\UserController;
+
+Route::resource('user', UserController::class);
 
 Route::resource('pelanggan', PelangganController::class);
 
@@ -74,3 +77,4 @@ Route::get('/about', function () {
 Route::get('/pelanggan/{id}/edit', [PelangganController::class, 'edit'])->name('pelanggan.edit');
 
 Route::delete('/pelanggan/{id}', [PelangganController::class, 'destroy'])->name('pelanggan.destroy');
+
