@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 
-class PelangganController
+class PelangganController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,7 +29,6 @@ class PelangganController
     public function store(Request $request)
     {
         // dd($request->all());
-
         $data['first_name'] = $request->first_name;
         $data['last_name']  = $request->last_name;
         $data['birthday']   = $request->birthday;
@@ -65,17 +64,17 @@ class PelangganController
     public function update(Request $request, string $id)
     {
         $pelanggan_id = $id;
-        $pelanggan    = Pelanggan::findOrFail($pelanggan_id);
-
+        $pelanggan = Pelanggan::findOrFail($pelanggan_id);
         $pelanggan->first_name = $request->first_name;
-        $pelanggan->last_name  = $request->last_name;
-        $pelanggan->birthday   = $request->birthday;
-        $pelanggan->gender     = $request->gender;
-        $pelanggan->email      = $request->email;
-        $pelanggan->phone      = $request->phone;
+        $pelanggan->last_name = $request->last_name;
+        $pelanggan->birthday = $request->birthday;
+        $pelanggan->gender = $request->gender;
+        $pelanggan->email = $request->email;
+        $pelanggan->phone = $request->phone;
 
         $pelanggan->save();
-        return redirect()->route('pelanggan.index')->with('success', 'Perubahan Data Berhasil!');
+
+        return redirect()->route('pelanggan.index')->with('success', 'Data Berhasil Diubah!');
     }
 
     /**
@@ -84,8 +83,8 @@ class PelangganController
     public function destroy(string $id)
     {
         $pelanggan = Pelanggan::findOrFail($id);
-
         $pelanggan->delete();
-        return redirect()->route('pelanggan.index')->with('success', 'Data berhasil dihapus');
+
+        return redirect()->route('pelanggan.index')->with('success', 'Data Berhasil Dihapus!');
     }
 }

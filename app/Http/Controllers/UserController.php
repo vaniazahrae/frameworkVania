@@ -1,16 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Suport\Facades\Hash;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
-
-class UserController
+class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $data['dataUser'] = User::all();
@@ -23,7 +19,6 @@ class UserController
     public function create()
     {
         return view('admin.user.create');
-        $data['password'] = Hash::make($request->password);
     }
 
     /**
@@ -33,16 +28,14 @@ class UserController
     {
         // dd($request->all());
 
-        $data['first_name'] = $request->first_name;
-        $data['last_name']  = $request->last_name;
-        $data['birthday']   = $request->birthday;
-        $data['gender']     = $request->gender;
-        $data['email']      = $request->email;
-        $data['phone']      = $request->phone;
+        $data['name'] = $request->name;
+        $data['email']  = $request->email;
+        $data['password'] = Hash::make($request->password);
+
 
         User::create($data);
 
-        return redirect()->route('pelanggan.index')->with('success', 'Penambahan Data Berhasil!');
+        return redirect()->route('user.index')->with('success', 'Penambahan Data Berhasil!');
     }
 
     /**
@@ -68,17 +61,15 @@ class UserController
     public function update(Request $request, string $id)
     {
         $user_id = $id;
-        $user    = User::findOrFail($user_id);
+        $user    = User::findOrFail($id);
 
-        $user->first_name = $request->first_name;
-        $user->last_name  = $request->last_name;
-        $user->birthday   = $request->birthday;
-        $user->gender     = $request->gender;
-        $user->email      = $request->email;
-        $user->phone      = $request->phone;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
 
         $user->save();
-        return redirect()->route('user.index')->with('success', 'Perubahan Data Berhasil!');
+
+        return redirect()->route('user.index')->with('success', 'Data Berhasil Diubah!');
     }
 
     /**
@@ -87,8 +78,8 @@ class UserController
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
-
         $user->delete();
-        return redirect()->route('user.index')->with('success', 'Data berhasil dihapus');
+
+        return redirect()->route('user.index')->with('success', 'Data Berhasil Dihapus!');
     }
 }
